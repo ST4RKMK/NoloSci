@@ -35,7 +35,7 @@ return [
                         'rules'=>'min:1|max:5|integer'
                     ],
                     'colore'=>[
-                        'type'=>'select','label' => 'Seleziona il colore','items'=>[],'multiple'=>false,'value'=>'','placeholder'=>'Bianco',
+                        'type'=>'select','label' => 'Seleziona il colore','items'=>["verde", "giallo"],'multiple'=>false,'value'=>'','placeholder'=>'Bianco',
 //                'rules'=>''
                     ],
                     'quantita'=>[
@@ -46,7 +46,7 @@ return [
                         'type'=>'number','label'=>'inserisci l\'altezza in centimetri','step'=>'1','min'=>'', 'max'=>'','value'=>'','placeholder'=>0,
                         'rules'=>'min:1'
                     ],
-                ]
+                ],
             ],
 
 

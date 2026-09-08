@@ -30,25 +30,25 @@
 
 @endsection
 
-<script>
-    document.addEventListener('DOMContentLoaded', () =>{
-        const variant_container = document.getElementById('varianti-container')
-        const variant_template = document.getElementById('variante-template')
-        const addVariantButton = document.getElementById('add-variante')
+{{--<script>--}}
+{{--    document.addEventListener('DOMContentLoaded', () =>{--}}
+{{--        const variant_container = document.getElementById('varianti-container')--}}
+{{--        const variant_template = document.getElementById('variante-template')--}}
+{{--        const addVariantButton = document.getElementById('add-variante')--}}
 
-        let index = 1;
+{{--        let index = 1;--}}
 
-        addVariantButton.addEventListener('click', ()=>{
+{{--        addVariantButton.addEventListener('click', ()=>{--}}
 
-            // const html = variant_template.innerHTML.replaceAll('__i__', index);
-            variant_container.insertAdjacentHTML('beforeend', variant_template.innerHTML.replaceAll('__i__', index));
-            index++;
-        })
+{{--            // const html = variant_template.innerHTML.replaceAll('__i__', index);--}}
+{{--            variant_container.insertAdjacentHTML('beforeend', variant_template.innerHTML.replaceAll('__i__', index));--}}
+{{--            index++;--}}
+{{--        })--}}
 
-        variant_container.addEventListener('click', (e)=>{
-            if (e.target.classList.contains('remove-variante')) {
-                e.target.closest('.variante').remove()
-            }
-        })
-    })
-</script>
+{{--        variant_container.addEventListener('click', (e)=>{--}}
+{{--            if (e.target.classList.contains('remove-variante')) {--}}
+{{--                e.target.closest('.variante').remove()--}}
+{{--            }--}}
+{{--        })--}}
+{{--    })--}}
+{{--</script>--}}
