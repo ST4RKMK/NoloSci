@@ -29,6 +29,19 @@
                                 </div>
 
                             </template>
+                            <template x-if="field.type === 'select'">
+                                <div>
+                                    <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
+                                    <flux:select
+                                        x-bind:name="`{{ $name }}[variants][${i}][${key}]`"
+                                        x-model="row[key]">
+                                        <option value="" x-text="field.placeholder || 'Seleziona…'"></option>
+                                        <template x-for="opt in field.items" :key="opt">
+                                            <option x-bind:value="opt" x-text="opt"></option>
+                                        </template>
+                                    </flux:select>
+                                </div>
+                            </template>
                         </div>
                     </template>
                     <flux:button type="button" variant="primary" @click="rows.pop({})">Rimuovi elemento</flux:button>
