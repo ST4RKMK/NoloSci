@@ -11,21 +11,27 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
-                    <h5 style="color:white" x-text="i+1"></h5>
+                    <h5 style="color:white" x-text="'Variante ' + (i + 1)"></h5>
                 </div>
                 <div>
                     <template x-for="(field,key) in items" :key="key">
                         <div>
                             <template x-if="field.type !== 'select'">
-                                <flux:input
-                                    x-bind:type="field.type"
-                                    x-bind:name="`{{ $name }}[variants][${i}][${key}]`"
-                                    x-bind:placeholder="field.placeholder"
-                                    x-model="row[key]">
-                                </flux:input>
+                                <div>
+                                    <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
+                                    <flux:input
+                                        x-bind:type="field.type"
+                                        x-bind:name="`{{ $name }}[variants][${i}][${key}]`"
+                                        x-bind:placeholder="field.placeholder"
+                                        x-bind:label="field.label"
+                                        x-model="row[key]">
+                                    </flux:input>
+                                </div>
+
                             </template>
                         </div>
                     </template>
+                    <flux:button type="button" variant="primary" @click="rows.pop({})">Rimuovi elemento</flux:button>
                 </div>
             </div>
         </div>
@@ -33,6 +39,7 @@
 
 
     <flux:button type="button" variant="primary" @click="rows.push({})">Aggiungi elemento</flux:button>
+
 
 
 </div>

@@ -19,7 +19,7 @@
                 @endforeach
                 </div>
                 <div class="">
-                    <flux:button variant="primary" color="amber">Salva</flux:button>
+                    <flux:button type="submit" variant="primary" color="amber">Salva</flux:button>
 
 {{--                    <button type="submit" class="btn btn-xs btn-info">Salva</button>--}}
                 </div>
