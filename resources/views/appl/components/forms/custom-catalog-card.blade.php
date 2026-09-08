@@ -3,56 +3,36 @@
 
 {{--@dd($data,$name)--}}
 {{--@dd($data)--}}
-<div x-init="" x-data="@js($data)">
+<div x-data="{ ...@js($data), rows: [{}] }">
 
 
 
-    <template x-for="(vvv,kkk) in items??[]" :key="kkk">
+    <template x-for="(row,i) in rows" :key="i">
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
-                    <h5 style="color:white" x-text="vvv.label || kkk"></h5>
+                    <h5 style="color:white" x-text="i+1"></h5>
                 </div>
                 <div>
-{{--                    <template x-for="(vvvv,kkkk) in vvv" :key="kkkk">--}}
+                    <template x-for="(field,key) in items" :key="key">
                         <div>
-                            <template x-if="vvv.type === 'text' || vvv.type === 'number'">
+                            <template x-if="field.type !== 'select'">
                                 <flux:input
-                                    x-bind:type="vvv.type"
-{{--                                    x-bind:name="'meta[items][' + kkk + '][value]'"--}}
-                                    x-bind:name="name[kkk]"
-                                    x-bind:value="vvv.value"
-                                    x-bind:placeholder="vvv.placeholder">
+                                    x-bind:type="field.type"
+                                    x-bind:name="`{{ $name }}[variants][${i}][${key}]`"
+                                    x-bind:placeholder="field.placeholder"
+                                    x-model="row[key]">
                                 </flux:input>
                             </template>
-                            <template x-if="vvv.type === 'select'">
-                                <flux:select wire:model="testiamo" placeholder="Seleziona....">
-                                    <template x-for="(vvvv,kkkk) in vvv[items]??[]">
-                                        <flux:select.option value="vvvv" x-text="vvvv"></flux:select.option>
-                                    </template>
-                                </flux:select>
-{{--                                <flux:select--}}
-{{--                                    x-bind:name="name[kkk]"--}}
-{{--                                    x-bind:value="vvv.value">--}}
-{{--                                    <flux:select.option value="">Seleziona</flux:select.option>--}}
-{{--                                    <template x-for="(vvvv,kkkk) in vvv[items]??{}" :key="kkkk">--}}
-{{--                                        <flux:select.option--}}
-{{--                                            value ="kkkk"--}}
-{{--                                            x-text="vvvv">--}}
-{{--                                        </flux:select.option>--}}
-{{--                                    </template>--}}
-{{--                                </flux:select>--}}
-
-                            </template>
                         </div>
-{{--                    </template>--}}
+                    </template>
                 </div>
             </div>
         </div>
     </template>
 
 
-    <flux:button variant="primary" x-click="items.push({})">Aggiungi elemento</flux:button>
+    <flux:button type="button" variant="primary" @click="rows.push({})">Aggiungi elemento</flux:button>
 
 
 </div>
