@@ -6,7 +6,7 @@ use App\Models\Public\Rent;
 return [
     \App\Models\Admin\Catalog::class => [
         'name'=>[
-            'type'=>'text','label'=>'Nome del prodotto','minlength'=>'1','maxlength'=>'100','required'=>true,'value'=>''
+            'type'=>'text','label'=>'Nome del prodotto','minlength'=>'1','maxlength'=>'100','required'=>true,'value'=>'','class'=>'giorgio'
         ],
         'type'=>[
             'type'=>'select','fn'=>['_findOtherType'],'label'=>'tipo di prodotto','multiple'=>false,'required'=>true,'value'=>''
@@ -28,22 +28,27 @@ return [
             'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
         ],
         'extend_meta'=>[
-            'taglia'=>[
-                'type'=>'number','label'=>'Inserisci la taglia','step'=>'1','min'=>'', 'max'=>'','value'=>'','placeholder'=>50,
-                'rules'=>'min:1|max:5|integer'
-            ],
-            'colore'=>[
-                'type'=>'select','label' => 'Seleziona il colore','items'=>[],'multiple'=>false,'value'=>'','placeholder'=>'Bianco',
+            'meta'=>[
+                'type'=>'custom-catalog-card','items'=>[
+                    'taglia'=>[
+                        'type'=>'number','label'=>'Inserisci la taglia','step'=>'1','min'=>'', 'max'=>'','value'=>'','placeholder'=>50,
+                        'rules'=>'min:1|max:5|integer'
+                    ],
+                    'colore'=>[
+                        'type'=>'select','label' => 'Seleziona il colore','items'=>[],'multiple'=>false,'value'=>'','placeholder'=>'Bianco',
 //                'rules'=>''
+                    ],
+                    'quantita'=>[
+                        'type'=>'number','label'=>'seleziona la quantita','step'=>'1','min'=>'0', 'max'=>'250','value'=>'','placeholder'=>0,
+                        'rules'=>'min:1'
+                    ],
+                    'altezza'=>[
+                        'type'=>'number','label'=>'inserisci l\'altezza in centimetri','step'=>'1','min'=>'', 'max'=>'','value'=>'','placeholder'=>0,
+                        'rules'=>'min:1'
+                    ],
+                ]
             ],
-            'quantita'=>[
-                'type'=>'number','label'=>'seleziona la quantita','step'=>'1','min'=>'0', 'max'=>'250','value'=>'','placeholder'=>0,
-                'rules'=>'min:1'
-            ],
-            'altezza'=>[
-                'type'=>'number','label'=>'inserisci l\'altezza in centimetri','step'=>'1','min'=>'', 'max'=>'','value'=>'','placeholder'=>0,
-                'rules'=>'min:1'
-            ],
+
 
 
         ]
