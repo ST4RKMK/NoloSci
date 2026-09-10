@@ -115,6 +115,8 @@ return [
         'available_to'=>[
             'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
         ],
-        'products'=>['fn'=>'_resolveProducts']
+        'products'=>[
+            'fn'=>['_resolveProducts']
+        ]
     ]
 ];

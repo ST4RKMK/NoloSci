@@ -28,6 +28,8 @@ class FormService
         $cp = $this->config;
         $this->recursiveArr($cp);
 
+
+
         if($this->model instanceof Model){
             $this->bindingData($cp);
         }
@@ -67,6 +69,11 @@ class FormService
 
     private function _findOtherType(&$arr){
         $arr['items']=$this->model->newQuery()->select('type')->distinct()->get()->pluck('type');
+
+    }
+
+    private function _resolveProducts(&$arr){
+//        $arr['products']=$this->model-
 
     }
 }

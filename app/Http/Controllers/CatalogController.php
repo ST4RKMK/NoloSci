@@ -36,9 +36,20 @@ class CatalogController extends Controller
                     'route'=>'catalog.destroy',
                     'parameters'=>['catalog'=>'id'],
                     'label'=>'Elimina'
-                ]
+                ],
+
             ],
-            'data'=>Catalog::all()->toArray()
+            'data'=>Catalog::all()->toArray(),
+            'footerButton'=>[
+                'createButton'=>
+                [
+                    'type'=>'create',
+                    'route'=>'catalog.create',
+                    'parameters'=>null,
+                    'label'=>'Crea'
+                ],
+            ]
+
         ]);
 
     }
@@ -66,7 +77,6 @@ class CatalogController extends Controller
 
 
         return redirect()->route('catalog.index');
-        dd($validate);
 
     }
 

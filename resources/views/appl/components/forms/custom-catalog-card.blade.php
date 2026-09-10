@@ -3,7 +3,7 @@
 
 {{--@dd($data,$name)--}}
 {{--@dd($data)--}}
-<div x-data="{ ...@js($data), rows: @js($model->extend->meta) }">
+<div x-data="{ ...@js($data), rows: @js($model->extend->meta ?? []) }">
 
 
 
