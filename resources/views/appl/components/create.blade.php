@@ -2,7 +2,7 @@
     'data',
     'action',
     'method',
-    'buttonLabel'
+    'buttonLabel'=>'Salva'
 ]
 )
 
@@ -14,6 +14,9 @@
             @csrf
             @if(in_array('PUT',$route->methods))
                 @method('PUT')
+                @php
+                $buttonLabel='Aggiorna';
+                @endphp
             @endif
 
             <div class="grid grid-cols-2 gap-2 py-2 px-4">
@@ -23,7 +26,9 @@
             </div>
 
             <div>
-                <flux:button type="submit" variant="primary" color="amber">Salva</flux:button>
+                <flux:button type="submit" variant="primary" color="amber">
+                    {{$buttonLabel}}
+                </flux:button>
             </div>
         </form>
     </div>

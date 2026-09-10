@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class GlobalObserver

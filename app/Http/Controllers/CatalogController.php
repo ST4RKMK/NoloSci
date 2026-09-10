@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Catalog;
 use App\Models\Public\Rent;
 use App\Services\BuildRules;
+use App\Services\Database\HlpService;
 use App\Services\FormService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -20,10 +21,26 @@ class CatalogController extends Controller
 
     public function index(Request $request)
     {
-        $name = request()->route()?->getName();
-        dd(Route::getRoutes()->getRoutes(), $name);
 
-        dd($request->all(),);
+        return view('appl.components.tables.table',[
+            'headers'=>['#'=>'id','Nome'=>'name','action'=>'action'],
+            'buttons'=>[
+                [
+                    'type'=>'edit',
+                    'route'=>'catalog.edit',
+                    'parameters'=>['catalog'=>'id'],
+                    'label'=>'Modifica'
+                ],
+                [
+                    'type'=>'delete',
+                    'route'=>'catalog.destroy',
+                    'parameters'=>['catalog'=>'id'],
+                    'label'=>'Elimina'
+                ]
+            ],
+            'data'=>Catalog::all()->toArray()
+        ]);
+
     }
 
     public function create(Request $request)
@@ -37,29 +54,51 @@ class CatalogController extends Controller
     public function store(Request $request)
     {
         $validate = $this->validateExtendRules($request, null);
+        if(!$validate->fails()){
+
+            $catalog = new Catalog();
+            $catalog = $catalog->create(HlpService::intersectColumns($catalog, $request->all()));
+            $this->insertExtend($request, $catalog);
+
+        }else{
+            return redirect()->back()->withErrors($validate);
+        }
+
+
+        return redirect()->route('catalog.index');
         dd($validate);
 
     }
 
     public function edit(Request $request, Catalog $catalog)
     {
-        dd($catalog);
 
-//        $this->subRoutes();
-//        dd($this->_route);
+        $ct = $catalog->toArray();
+
+        $this->mergeData(['data' => FormService::getInstance('app_settings.' . Catalog::class, $catalog)->setForm(),
+            'model'=>$catalog]);
+        return view('appl.catalog.create', $this->_response);
+
+
+
 
     }
-//        $formActions = [
-//            'create' => 'store',
-//            'edit'   => 'update',
-//        ];
-//
-//        $name = request()->route()?->getName();
-//        $mdl  = Str::beforeLast($name, '.');
-//        $act  = Str::afterLast($name, '.');
-//
-//        $target = $formActions[$act] ?? null;
-//
-//        dd($name, $act, $mdl, $target, Route::getRoutes()->getByName("$mdl.$target"));
-//    }
+
+    public function update(Request $request, Catalog $catalog){
+        $validate = $this->validateExtendRules($request);
+        if(!$validate->fails()){
+            $catalog->update(HlpService::intersectColumns($catalog, $request->all()));
+            $this->insertExtend($request, $catalog);
+        }else{
+
+        }
+
+        return redirect()->route('catalog.index');
+
+    }
+
+    public function destroy(Request $request, Catalog $catalog){
+        $catalog->delete();
+        return redirect()->route('catalog.index');
+    }
 }

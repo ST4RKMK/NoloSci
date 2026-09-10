@@ -27,9 +27,24 @@ class FormService
     public function setForm(){
         $cp = $this->config;
         $this->recursiveArr($cp);
+
+        if($this->model instanceof Model){
+            $this->bindingData($cp);
+        }
+
+
         return $cp;
     }
 
+    private function bindingData(&$cp){
+       $mdl = $this->model->toArray();
+//       dump($cp);
+       foreach ($cp as $k=>$v){
+           if(isset($mdl[$k]))
+               $cp[$k]['value'] = $mdl[$k];
+       }
+//       dd($cp);
+    }
 
     private function recursiveArr(&$arr){
         if(is_array($arr))

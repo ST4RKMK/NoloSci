@@ -28,14 +28,14 @@ return [
             'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
         ],
         'extend_meta'=>[
-            'meta'=>[
+            'extend_meta'=>[
                 'type'=>'custom-catalog-card','items'=>[
                     'taglia'=>[
                         'type'=>'number','label'=>'Inserisci la taglia','step'=>'1','min'=>'', 'max'=>'','value'=>'','placeholder'=>50,
                         'rules'=>'min:1|max:5|integer'
                     ],
                     'colore'=>[
-                        'type'=>'select','label' => 'Seleziona il colore','items'=>["verde", "giallo"],'multiple'=>false,'value'=>'','placeholder'=>'Bianco',
+                        'type'=>'select','label' => 'Seleziona il colore','items'=>["verde", "giallo"],'multiple'=>false,'value'=>'','placeholder'=>'Seleziona almeno un colore',
 //                'rules'=>''
                     ],
                     'quantita'=>[

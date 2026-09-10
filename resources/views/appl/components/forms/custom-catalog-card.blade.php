@@ -3,7 +3,7 @@
 
 {{--@dd($data,$name)--}}
 {{--@dd($data)--}}
-<div x-data="{ ...@js($data), rows: [{}] }">
+<div x-data="{ ...@js($data), rows: @js($model->extend->meta) }">
 
 
 
@@ -21,7 +21,7 @@
                                     <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
                                     <flux:input
                                         x-bind:type="field.type"
-                                        x-bind:name="`{{ $name }}[variants][${i}][${key}]`"
+                                        x-bind:name="`{{ $name }}[${i}][${key}]`"
                                         x-bind:placeholder="field.placeholder"
                                         x-bind:label="field.label"
                                         x-model="row[key]">
@@ -33,7 +33,7 @@
                                 <div>
                                     <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
                                     <flux:select
-                                        x-bind:name="`{{ $name }}[variants][${i}][${key}]`"
+                                        x-bind:name="`{{ $name }}[${i}][${key}]`"
                                         x-model="row[key]">
                                         <option value="" x-text="field.placeholder || 'Seleziona…'"></option>
                                         <template x-for="opt in field.items" :key="opt">
@@ -46,7 +46,7 @@
                                 <div>
                                     <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
                                     <flux:textarea
-                                        x-bind:name="{{ $name }}[variants][${i}][${key}]"
+                                        x-bind:name="{{ $name }}[${i}][${key}]"
                                         x-bind:placeholder="field.placeholder"
                                         x-bind:rows="field.rows"
                                         x-model="row[key]">

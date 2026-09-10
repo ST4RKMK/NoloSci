@@ -23,7 +23,9 @@ Route::middleware('auth')->group(function () {
         \App\Models\Public\Client::class => ClientController::class,
         \App\Models\System\Package::class => PackageController::class];
     Route::middleware([])->prefix('admin')->group(function () use ($admin) {
-        Route::resources(array_combine(array_map(fn($e)=>strtolower(class_basename($e)),array_keys($admin)),array_values($admin)));
+        Route::resources(array_combine(array_map(fn($e)=>strtolower(class_basename($e)),array_keys($admin)),array_values($admin))
+//            ,['as'=>'index.store.create'] <- QUESTO É ESEMPIO CON PREFISSO
+        );
     });
 
 });

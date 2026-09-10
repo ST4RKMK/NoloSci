@@ -11,6 +11,17 @@ use Illuminate\Support\Arr;
 
 trait CheckExtend
 {
+
+
+    public function insertExtend(Request $request,Model $model){
+        $ext = $this->checkExtend($request,$model);
+
+        if(!empty($ext)){
+            $model->extend()->updateOrCreate($ext['extend']);
+        }
+    }
+
+
     public function checkExtend(Request $richiesta, Model|null $modello ){
         $data = Arr::dot($richiesta->all());
 //        $extend = Arr::where($data, fn ($e,$k) => str_contains($k, 'extend'));

@@ -69,21 +69,23 @@ abstract class Controller
 //        $this->_route = ['route' =>"$mdl.$target",'method' => $method,'hidden' => $hidden];
 
 //        list($mdl,$act) = explode('.',request()->route()->getName());
-        $tt = explode('.',request()->route()->getName());
-        $act=null;
-        $mdl=null;
-        if(count($tt)>=2){
-            $act=$tt[1];
-            $mdl=$tt[0];
-        }
-        else return null;
-        $act=match(true){
-            $act==='edit'=>'update',
-            default=>'store'
+        $tls = explode('.',request()->route()->getName());
+
+        if(count($tls) < 2)
+            return null;
+        $act = last($tls);
+        match(true){
+            $act==='edit'=>$tls[count($tls)-1] = 'update',
+            $act==='create'=>$tls[count($tls)-1] = 'store',
+            default=>$act
         };
+//        dd($act,$act2,$name);
+//        dd(str_replace('.'.$act,'.'.$act2,request()->route()->getName()));
+
         $routes=Route::getRoutes()->getRoutes();
         $this->_route=  ['route'=>collect(
-            Route::getRoutes()->getRoutes())->map(fn($e)=>Str::containsAll($e->getName(),[$mdl,$act])?$e:null)->filter()?->first()];
+            Route::getRoutes()->getRoutes())->map(fn($e)=>Str::contains($e->getName(),join('.', $tls))?$e:null)->filter()?->first()];
+//            Route::getRoutes()->getRoutes())->map(fn($e)=>Str::containsAll($e->getName(),[str_replace('.'.$act,'.'.$act2,request()->route()->getName())])?$e:null)->filter()?->first()];
     }
 
 

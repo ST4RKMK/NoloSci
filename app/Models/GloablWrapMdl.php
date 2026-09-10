@@ -13,6 +13,7 @@ class GloablWrapMdl extends Model
 
     use SoftDeletes;
 
+    protected $guarded = [];
 
     protected $appends=[
         'extend'
@@ -27,7 +28,7 @@ class GloablWrapMdl extends Model
 
 
     public function getExtendAttribute(){
-        return $this->extend;
+        return $this->extend()->first();
     }
     public function extend(){
         return $this->morphOne(Extend::class, 'extendable');
