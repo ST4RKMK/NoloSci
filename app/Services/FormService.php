@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Admin\Catalog;
+use App\Models\System\Package;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
@@ -73,7 +75,12 @@ class FormService
     }
 
     private function _resolveProducts(&$arr){
-//        $arr['products']=$this->model-
-
+//        $arr['items']=
+        $cat = Catalog::get()->map(fn($e)=>['instance_of'=>Catalog::class,'id'=>$e->id,'name'=>$e->name,'items'=>$e->extend->meta]);
+        $pack = Package::get()->map(fn($e)=>['instance_of'=>Package::class,'id'=>$e->id,'name'=>$e->name]);
+        $cat->merge($pack);
+        $arr['items']=$cat;
+        $arr['type']='custom-package';
+        $arr['value']=[];
     }
 }
