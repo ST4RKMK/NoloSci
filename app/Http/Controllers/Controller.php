@@ -65,7 +65,7 @@ abstract class Controller
         $method = (in_array($verb,self::NATIVE_VERB,true)) ? $verb : 'POST';
         $hidden = (in_array($verb,self::NATIVE_VERB,true)) ? null : $verb;
 
-        $this->_route = ['route' =>$route,'method' => $method,'hidden' => $hidden];
+        $this->_route = ['route' =>"$mdl.$target",'method' => $method,'hidden' => $hidden];
 
 //        list($mdl,$act) = explode('.',request()->route()->getName());
 //        $act=match(true){

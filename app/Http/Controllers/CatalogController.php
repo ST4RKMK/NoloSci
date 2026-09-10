@@ -18,19 +18,20 @@ class CatalogController extends Controller
     //
 
 
-
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $name = request()->route()?->getName();
-        dd(Route::getRoutes()->getRoutes(),$name);
+        dd(Route::getRoutes()->getRoutes(), $name);
 
         dd($request->all(),);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $name = request()->route()?->getName();
-        dd(Route::getRoutes()->getRoutes(),$name);
-        $this->mergeData(['data'=> FormService::getInstance('app_settings.'.Catalog::class,new Catalog())->setForm()]);
-        return view('appl.catalog.create',$this->_response);
+        dd(Route::getRoutes()->getRoutes(), $name);
+        $this->mergeData(['data' => FormService::getInstance('app_settings.' . Catalog::class, new Catalog())->setForm()]);
+        return view('appl.catalog.create', $this->_response);
     }
 
     public function store(Request $request)
@@ -40,18 +41,24 @@ class CatalogController extends Controller
 
     }
 
-    public function edit(Request $request,$id){
-        $formActions = [
-            'create' => 'store',
-            'edit'   => 'update',
-        ];
+    public function edit(Request $request, $id)
+    {
 
-        $name = request()->route()?->getName();
-        $mdl  = Str::beforeLast($name, '.');
-        $act  = Str::afterLast($name, '.');
+        $this->subRoutes();
+        dd($this->_route);
 
-        $target = $formActions[$act] ?? null;
-
-        dd($name, $act, $mdl, $target, Route::getRoutes()->getByName("$mdl.$target"));
     }
+//        $formActions = [
+//            'create' => 'store',
+//            'edit'   => 'update',
+//        ];
+//
+//        $name = request()->route()?->getName();
+//        $mdl  = Str::beforeLast($name, '.');
+//        $act  = Str::afterLast($name, '.');
+//
+//        $target = $formActions[$act] ?? null;
+//
+//        dd($name, $act, $mdl, $target, Route::getRoutes()->getByName("$mdl.$target"));
+//    }
 }
