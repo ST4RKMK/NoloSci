@@ -12,6 +12,7 @@
 {{--    --}}{{--        @include('appl.components.forms.input',['name'=>$n,'data'=>$v])--}}
 
 {{--@else--}}
+{{--@dd($data['type'])--}}
     @if(isset($data['type']))
 
         @if(in_array($data['type'],['text','number','date','datetime','datetime-local']))

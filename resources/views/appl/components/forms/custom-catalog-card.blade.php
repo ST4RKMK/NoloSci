@@ -16,7 +16,7 @@
                 <div>
                     <template x-for="(field,key) in items" :key="key">
                         <div>
-                            <template x-if="field.type !== 'select'">
+                            <template x-if="!['select','textarea'].includes(field.type)">
                                 <div>
                                     <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
                                     <flux:input
@@ -42,6 +42,18 @@
                                     </flux:select>
                                 </div>
                             </template>
+                            <template x-if="field.type ==='textarea'">
+                                <div>
+                                    <label class="block mb-1 text-sm text-zinc-300" x-text="field.label"></label>
+                                    <flux:textarea
+                                        x-bind:name="{{ $name }}[variants][${i}][${key}]"
+                                        x-bind:placeholder="field.placeholder"
+                                        x-bind:rows="field.rows"
+                                        x-model="row[key]">
+                                    </flux:textarea>
+                                </div>
+                            </template>
+
                         </div>
                     </template>
                     <flux:button type="button" variant="primary" @click="rows.pop({})">Rimuovi elemento</flux:button>

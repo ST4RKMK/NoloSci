@@ -55,21 +55,26 @@ return [
     ],
     Rent::class => [
         'extend_meta'=>[
-            'peso'=>[
-                'type'=>'number','label'=>'Inserisci il peso in kg','step'=>'1','min'=>'10', 'max'=>'170','value'=>'','placeholder'=>90
-            ],
-            'altezza'=>[
-                'type'=>'number','label'=>'Inserisci la tua altezza in cm','step'=>'1','min'=>'50', 'max'=>'230','value'=>'','placeholder'=>170
-            ],
-            'taglia_piedi'=>[
-                'type'=>'number','label'=>'Inserisci la taglia dei piedi (EU)','step'=>'1','min'=>'20', 'max'=>'60','value'=>'','placeholder'=>40
-            ],
-            'bmi'=>'',
-            'skills_level' =>[
-                'type'=>'select','label'=>'seleziona la tua bravura','items' =>['principiante','intermedio',  'avanzato'],'multiple'=> false,'value'=>'','placeholder'=>'principiante'
-            ],
-            'note'=>[
-                'type'=>'textarea','label'=>'inserisci le note','rows'=>'4','value'=>'','placeholder'=>'se hai qualcosa da dirci puoi aggiungerlo qui'
+            'meta'=>[
+                'type'=>'custom-catalog-card','items'=>
+                    [
+                    'peso'=>[
+                        'type'=>'number','label'=>'Inserisci il peso in kg','step'=>'1','min'=>'10', 'max'=>'170','value'=>'','placeholder'=>90
+                    ],
+                    'altezza'=>[
+                        'type'=>'number','label'=>'Inserisci la tua altezza in cm','step'=>'1','min'=>'50', 'max'=>'230','value'=>'','placeholder'=>170
+                    ],
+                    'taglia_piedi'=>[
+                        'type'=>'number','label'=>'Inserisci la taglia dei piedi (EU)','step'=>'1','min'=>'20', 'max'=>'60','value'=>'','placeholder'=>40
+                    ],
+//            'bmi'=>'',
+                    'skills_level' =>[
+                        'type'=>'select','label'=>'seleziona la tua bravura','items' =>['principiante','intermedio',  'avanzato'],'multiple'=> false,'value'=>'','placeholder'=>'principiante'
+                    ],
+                    'note'=>[
+                        'type'=>'textarea','label'=>'inserisci le note','rows'=>'4','value'=>'','placeholder'=>'se hai qualcosa da dirci puoi aggiungerlo qui'
+                    ]
+                ]
             ]
         ]
     ],

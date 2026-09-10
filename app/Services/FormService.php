@@ -37,6 +37,9 @@ class FormService
                 if(isset($arr['fn']))
                     foreach($arr['fn'] as $key=>$e)
                        call_user_func_array([$this,$e],[&$arr]);
+        if (!is_array($arr)) {
+            return;
+        }
         foreach($arr as $k=>$v)
             if(is_array($v))
                 $this->recursiveArr($arr[$k]);

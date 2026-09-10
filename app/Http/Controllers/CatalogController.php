@@ -3,47 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Catalog;
+use App\Models\Public\Rent;
 use App\Services\BuildRules;
 use App\Services\FormService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 
 class CatalogController extends Controller
 {
     //
 
+
+
     public function index(Request $request){
-        dd($request->all());
+        $name = request()->route()?->getName();
+        dd(Route::getRoutes()->getRoutes(),$name);
+
+        dd($request->all(),);
     }
 
     public function create(Request $request){
-
-//        return FormService::getInstance('app_settings.'.Catalog::class,new Catalog())->setForm();
-
-        return view('appl.catalog.create',['data'=> FormService::getInstance('app_settings.'.Catalog::class,new Catalog())->setForm()]);
+        $name = request()->route()?->getName();
+        dd(Route::getRoutes()->getRoutes(),$name);
+        $this->mergeData(['data'=> FormService::getInstance('app_settings.'.Catalog::class,new Catalog())->setForm()]);
+        return view('appl.catalog.create',$this->_response);
     }
 
     public function store(Request $request)
     {
-        $extend = $this->checkExtend($request, null);
-
-        $request->request->add($extend);
-
-
-        $rules = BuildRules::getIstance()->buildRules('app_settings.'.Catalog::class,['extend_meta'=>'extend.meta.*']);
-
-//        dd($rules);
-
-
-        $validate = Validator::make($request->all(),$rules);
-        if ($validate->fails()) {
-            dd($validate);
-        }
+        $validate = $this->validateExtendRules($request, null);
         dd($validate);
 
-        dd(Arr::dot($request->all()), $extend);
+    }
 
+    public function edit(Request $request,$id){
+        $formActions = [
+            'create' => 'store',
+            'edit'   => 'update',
+        ];
+
+        $name = request()->route()?->getName();
+        $mdl  = Str::beforeLast($name, '.');
+        $act  = Str::afterLast($name, '.');
+
+        $target = $formActions[$act] ?? null;
+
+        dd($name, $act, $mdl, $target, Route::getRoutes()->getByName("$mdl.$target"));
     }
 }

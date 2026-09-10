@@ -2,6 +2,9 @@
 
 namespace App\Concerns\Models;
 
+use App\Models\Admin\Catalog;
+use App\Services\BuildRules;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -22,6 +25,18 @@ trait CheckExtend
         });
         return Arr::undot($extend);
 //        dd($extend);
+    }
+
+    public function validateExtendRules(Request $richiesta, Model|null $model = null){
+        $extend = $this->checkExtend($richiesta, $model);
+
+        $richiesta->request->add($extend);
+
+        $rules = BuildRules::getIstance()->buildRules('app_settings.'.Catalog::class,['extend_meta'=>'extend.meta.*']);
+
+        $validate = Validator::make($richiesta->all(), $rules);
+
+        return $validate;
     }
 
     //
