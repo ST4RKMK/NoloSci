@@ -10,9 +10,11 @@
 
 <div class="card">
     <div class="card-body">
-        <form method={{$method}} action="{{ $action }}">
+        <form method="POST" action="{{ route($route->action['as'],request()->route()->parameters()) }}">
             @csrf
-
+            @if(in_array('PUT',$route->methods))
+                @method('PUT')
+            @endif
 
             <div class="grid grid-cols-2 gap-2 py-2 px-4">
                 @foreach($data as $k => $v)

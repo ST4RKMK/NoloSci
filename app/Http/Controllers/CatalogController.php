@@ -28,9 +28,9 @@ class CatalogController extends Controller
 
     public function create(Request $request)
     {
-        $name = request()->route()?->getName();
-        dd(Route::getRoutes()->getRoutes(), $name);
+
         $this->mergeData(['data' => FormService::getInstance('app_settings.' . Catalog::class, new Catalog())->setForm()]);
+//        dd($this->_response);
         return view('appl.catalog.create', $this->_response);
     }
 
@@ -41,11 +41,12 @@ class CatalogController extends Controller
 
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Catalog $catalog)
     {
+        dd($catalog);
 
-        $this->subRoutes();
-        dd($this->_route);
+//        $this->subRoutes();
+//        dd($this->_route);
 
     }
 //        $formActions = [
