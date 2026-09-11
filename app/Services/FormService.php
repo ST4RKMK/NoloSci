@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Admin\Catalog;
+use App\Models\System\MultiMorph;
 use App\Models\System\Package;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -65,6 +66,26 @@ class FormService
 
     }
 
+    private function getChildren(Model $model, $rel='from',$to='toable'){
+//        $array =[];
+
+        return $model->$rel->map(function($e) use($to){
+            $e->$to;
+            $local=$e;
+            $local->instance_of=get_class($e->$to);
+            $local->match=$local->instance_of.'::'.$local->$to->id;
+            return $local;
+
+        });
+
+//        dd($model->from);
+//        foreach ($model->$method as $child) {
+//            array_push($array, $child->toable_type::find($child->toable_id));
+//        }
+//        return $array;
+
+    }
+
 
 
     /****************************** UTL SRV ******************************/
@@ -76,11 +97,18 @@ class FormService
 
     private function _resolveProducts(&$arr){
 //        $arr['items']=
-        $cat = Catalog::get()->map(fn($e)=>['instance_of'=>Catalog::class,'id'=>$e->id,'name'=>$e->name,'items'=>$e->extend->meta]);
-        $pack = Package::get()->map(fn($e)=>['instance_of'=>Package::class,'id'=>$e->id,'name'=>$e->name]);
-        $cat->merge($pack);
-        $arr['items']=$cat;
+        $cat = Catalog::get()->map(fn($e)=>['instance_of'=>Catalog::class,'id'=>$e->id,
+            'match'=>Catalog::class.'::'.$e->id,'name'=>$e->name,'items'=>$e->extend->meta]);
+        $pack = Package::get()->map(fn($e)=>['instance_of'=>Package::class,'id'=>$e->id,
+            'match'=>Package::class.'::'.$e->id,'name'=>$e->name]);
+        $merged = $cat->merge($pack);
+//        dd($cat,$pack);
+        $arr['items']=$merged;
         $arr['type']='custom-package';
-        $arr['value']=[];
+        $arr['value']= $this->getChildren($this->model); //MultiMorph::query()->where('multi_morphs.toable_id', '=',$this->model->id);
+
+
+
+
     }
 }

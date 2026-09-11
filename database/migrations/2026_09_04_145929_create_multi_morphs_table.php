@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('multi_morphs', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
-            $table->morphs('formable');
+//            $table->uuid();
+            $table->morphs('fromable');
             $table->nullableMorphs('toable');
             $table->softDeletes();
             $table->timestamps();

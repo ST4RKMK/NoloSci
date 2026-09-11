@@ -4,6 +4,7 @@ namespace App\Concerns\Models;
 
 use App\Models\Admin\Catalog;
 use App\Services\BuildRules;
+use App\Services\Database\HlpService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ trait CheckExtend
     }
 
 
-    public function checkExtend(Request $richiesta, Model|null $modello,$type='extend',$dotted=true ){
+    public function checkExtend(Request $richiesta, Model|null $modello,$type='extend',$dotted=true, Model|null $model = null){
         $data = Arr::dot($richiesta->all());
 //        $extend = Arr::where($data, fn ($e,$k) => str_contains($k, 'extend'));
         $extend = [];
@@ -37,8 +38,31 @@ trait CheckExtend
             }
 
         });
-        return Arr::undot($extend);
-//        dd($extend);
+        $ret = Arr::undot($extend);
+        if($model) {
+            $model->fill(HlpService::intersectColumns($model, $richiesta->all()));
+            if (null === $model->id)
+                $model->save();
+            if (!empty($ret)) {
+                $ret = array_column($ret['multi_morph'], 'toable');
+                $model->from()->delete();
+                foreach ($ret as $e) {
+//                foreach ($e as $i) {
+//                    dd($i);
+                    list($mdl, $id) = explode('::', $e);
+                    $model->from()->create([
+                        'toable_type' => $mdl,
+                        'toable_id' => $id,
+                    ]);
+//                }
+
+                }
+//            dd($modello);
+//            $modello->save();
+            }
+        return $model;
+        }
+        return $ret;
     }
 
     public function validateExtendRules(Request $richiesta, Model|null $model = null){

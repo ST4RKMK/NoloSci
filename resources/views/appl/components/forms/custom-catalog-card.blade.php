@@ -56,7 +56,7 @@
 
                         </div>
                     </template>
-                    <flux:button type="button" variant="primary" @click="rows.pop({})">Rimuovi elemento</flux:button>
+                    <flux:button type="button" variant="primary" @click="rows.splice(i, 1)">Rimuovi elemento</flux:button>
                 </div>
             </div>
         </div>
