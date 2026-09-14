@@ -5,6 +5,8 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentController;
+use App\Models\System\Package;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,3 +37,9 @@ require __DIR__.'/auth.php';
 
 $user=[  \App\Models\Public\Rent::class => RentController::class,];
 Route::resources(array_combine(array_map(fn($e)=>strtolower(class_basename($e)),array_keys($user)),array_values($user)));
+
+Route::get('/packages', function () {
+
+    $data = Package::with('to')->where('available_from','<',Carbon::now())->where('available_to','>',Carbon::now())->get()->toArray();
+    return view('public.packages',['data'=>$data]);
+});

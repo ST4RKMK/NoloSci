@@ -56,7 +56,7 @@ return [
     Rent::class => [
         'extend_meta'=>[
             'meta'=>[
-                'type'=>'custom-catalog-card','items'=>
+                'type'=>'custom-rent-card','items'=>
                     [
                     'peso'=>[
                         'type'=>'number','label'=>'Inserisci il peso in kg','step'=>'1','min'=>'10', 'max'=>'170','value'=>'','placeholder'=>90
@@ -69,7 +69,7 @@ return [
                     ],
 //            'bmi'=>'',
                     'skills_level' =>[
-                        'type'=>'select','label'=>'seleziona la tua bravura','items' =>['principiante','intermedio',  'avanzato'],'multiple'=> false,'value'=>'','placeholder'=>'principiante'
+                        'type'=>'select','label'=>'seleziona la tua bravura','items' =>['principiante','intermedio','avanzato'],'multiple'=> false,'value'=>'','placeholder'=>'Seleziona il livello...'
                     ],
                     'note'=>[
                         'type'=>'textarea','label'=>'inserisci le note','rows'=>'4','value'=>'','placeholder'=>'se hai qualcosa da dirci puoi aggiungerlo qui'
@@ -83,7 +83,7 @@ return [
             'type'=>'text','label'=>'Nome del Cliente','minlength'=>'1','maxlength'=>'100','required'=>true,'value'=>'','placeholder'=>'Nome'
         ],
         'lastname'=>[
-            'type'=>'text','label'=>'Cognome del prodotto','minlength'=>'1','maxlength'=>'100','required'=>true,'value'=>'','placeholder'=>'Cognome'
+            'type'=>'text','label'=>'Cognome del Cliente','minlength'=>'1','maxlength'=>'100','required'=>true,'value'=>'','placeholder'=>'Cognome'
         ],
         'phone'=>[
             'type'=>'tel','label'=>'Telefono fisso del Cliente','required'=>false,'value'=>'','length'=>'11','placeholder'=>'0834-34567'

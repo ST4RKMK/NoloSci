@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin\Catalog;
 use App\Models\Public\Rent;
+use App\Models\System\Package;
 use App\Services\BuildRules;
 use App\Services\FormService;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class RentController extends Controller
 {
@@ -14,9 +18,9 @@ class RentController extends Controller
 
     }
 
-    public function create(Request $request){
+    public function create()
+    {
 //
-        return view('appl.catalog.create',['data'=>FormService::getInstance('app_settings.'.Rent::class,new Rent())->setForm()]);
     }
 
     public function store(Request $request){
