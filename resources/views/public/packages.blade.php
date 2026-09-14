@@ -1,14 +1,11 @@
 {{--@dd(array_column($data,'to'),$data,array_merge($data,array_column($data,'to')))--}}
-
+{{--@dd($data)--}}
 @extends('layouts.public')
 
 @section('content')
     <div class="flex flex-wrap">
-        @foreach($data as $k=>$v)
-            {{--        @if(isset($data['to']))--}}
-            {{--            @include('public.package-card',$v)--}}
-            {{--        @endif--}}
-            @include('public.package-card',$v)
+        @foreach($data as $p)
+            @include('public.package-card',$p)
 
         @endforeach
     </div>

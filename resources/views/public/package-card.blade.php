@@ -1,4 +1,4 @@
-{{--@dump($v)--}}
+@dump($p)
 {{--<style>--}}
 {{--    table, thead, td {--}}
 {{--        border: 1px solid black;--}}
@@ -8,15 +8,15 @@
 {{--</style>--}}
 <div class="max-w-sm rounded overflow-hidden shadow-lg p-2 m-2" style="min-width: 350px">
     <div class="px-2 py-2">
-        <div class="font-bold text-xl mb-2">{{$v['name']}}</div>
+        <div class="font-bold text-xl mb-2">{{$p['name']}}</div>
         <p class="text-gray-700 text-base border-b-2">
-            {{$v['description']}}
+            {{$p['description']}}
         </p>
         <p class="text-gray-700 text-base">
-            <span class="font-bold">Dal </span>{{$v['available_from']}}
+            <span class="font-bold">Dal </span>{{$p['available_from']}}
         </p>
         <p class="text-gray-700 text-base">
-            <span class="font-bold">Al </span>{{$v['available_to']}}
+            <span class="font-bold">Al </span>{{$p['available_to']}}
         </p>
     </div>
     <div class="px-6 pt-4 pb-2">

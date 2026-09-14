@@ -5,8 +5,10 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RentController;
+use App\Models\Admin\Catalog;
 use App\Models\System\Package;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,6 +42,13 @@ Route::resources(array_combine(array_map(fn($e)=>strtolower(class_basename($e)),
 
 Route::get('/packages', function () {
 
-    $data = Package::with('to')->where('available_from','<',Carbon::now())->where('available_to','>',Carbon::now())->get()->toArray();
+//    $data = Package::with(['from.toable' => fn(MorphTo $mdl) => $mdl->morphWith([Package::class =>['from.toable'],Catalog::class =>[]])])->where('available_from','<',now())->where('available_to','>',now())->get();
+//    $data = Package::with(['extend','from.toable.extend'])->where('available_from','<',now())->where('available_to','>',now())->get()->toArray();
+    $data = Package::with(['extend','from:id,fromable_id,fromable_type,toable_id,toable_type',
+        'from.toable' => fn (MorphTo $m) => $m->constrain([
+            Package::class => fn ($q) => $q->select('id', 'name')->with('extend'),
+            Catalog::class => fn ($q) => $q->select('id', 'name', 'price')->with('extend'),
+        ]),
+    ])->where('available_from', '<', now())->where('available_to', '>', now())->get();
     return view('public.packages',['data'=>$data]);
 });

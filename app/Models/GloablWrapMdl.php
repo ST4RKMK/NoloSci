@@ -21,14 +21,14 @@ class GloablWrapMdl extends Model
 
     protected $casts=[
         'meta'=>'array',
-        'avaiable_from'=>'datetime',
-        'avaiable_to'=>'datetime'
+        'available_from'=>'datetime',
+        'available_to'=>'datetime'
     ];
 
 
 
     public function getExtendAttribute(){
-        return $this->extend()->first();
+        return $this->getRelationValue('extend');
     }
     public function extend(){
         return $this->morphOne(Extend::class, 'extendable');
