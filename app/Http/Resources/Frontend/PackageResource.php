@@ -26,8 +26,8 @@ class PackageResource extends JsonResource
             'to'=>$this->available_to->format('d/m/Y'),
             'children'=>$this->from->map(function($e){
                 return match(true){
-                    $e->toable instanceof Package=>new PackageResource($e->toable),
-                    $e->toalbe instanceof Catalog=>new ProductResource($e->toable),
+                    $e->toable instanceof Package=>(new PackageResource($e->toable))->resolve(),
+                    $e->toable instanceof Catalog=>(new ProductResource($e->toable))->resolve(),
                     default => null,
                 };
 

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.public');
 });
 
 Route::get('/dashboard', function () {
@@ -62,7 +62,7 @@ Route::get('/packages', function () {
 
 //
 //
-Route::get('/products',[ProductsController::class,'showAllProducts'])->name('products.global.products');
+Route::get('/products',[ProductsController::class,'showAllProducts'])->name('public.products');
 //    $data = Catalog::with('extend')->where('available_from', '<', now())->where('available_to', '>', now())->get();
 //return view('public.products',['data'=>$data]);
 

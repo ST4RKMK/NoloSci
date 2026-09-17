@@ -51,9 +51,19 @@ class CheckPackageStatus extends Command
 //                $e->updateQuietly(['status'=>false]);
                 //dispatch evento di ricalcolo pacchetti
             }
+            $parents = $e?->from;
+            if( $parents){
+                $parents->map(function($parent){
+                    if($parent->fromable->discount){
+                        $prezzolo =  PackagePrice::getInstance($parent->fromable)->__boot__();
+                        $parent->fromable->updateQUietly(['price'=>$prezzolo-round(($prezzolo*$parent->fromable->discount)/100)]);
+                    }
+                });
+
+            }
             if($enter_recalc){
 
-                $parents = $e?->from;
+
                 $e->from?->map(fn($e)=>$e->delete());
                 $e->to?->map(fn($e)=>$e->delete());
                 $e->extend?->delete();
@@ -62,8 +72,12 @@ class CheckPackageStatus extends Command
                 $parents?->each(function($parent){
 
                     try{
-                        if( $parent->fromable)
-                   $parent->fromable->updateQUietly(['price'=>PackagePrice::getInstance($parent->fromable)->__boot__()]);
+                        if( $parent->fromable){
+                            if($parent->fromable->discount){
+                               $prezzolo =  PackagePrice::getInstance($parent->fromable)->__boot__();
+                               $parent->fromable->updateQUietly(['price'=>$prezzolo*($parent->fromable->discount/100)]);
+                            }
+                        }
 
                     }catch(\Exception $e){
                         dd($e->getMessage(),$parent->fromable);

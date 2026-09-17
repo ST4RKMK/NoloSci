@@ -13,7 +13,7 @@
 
         <!-- Scripts -->
 {{--        @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
-        <link href="{{asset('build/assets/app-Be8muQTU.css')}}" type="text/css" rel="stylesheet" />
+        <link href="{{asset('build/assets/app-BM9BSUJO.css')}}" type="text/css" rel="stylesheet" />
         <script src="{{asset('build/assets/app-qVfKvd79.js')}}"></script>
         @fluxAppearance
     </head>

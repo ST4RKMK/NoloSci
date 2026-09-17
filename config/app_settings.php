@@ -25,7 +25,7 @@ return [
             'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
         ],
         'available_to'=>[
-            'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
+            'type'=>'datetime-local','required'=>true,'label'=>'Data di disattivazione','value'=>''
         ],
         'extend_meta'=>[
             'extend_meta'=>[
@@ -110,13 +110,13 @@ return [
             ]
         ],
         'price'=>[
-            'type'=>'number','label'=>'Prezzo del prodotto','required'=>true,'value'=>'0','step'=>0.01,'min'=>0,'max'=>100
+            'type'=>'number','label'=>'Prezzo del Pacchetto','required'=>true,'value'=>'0','step'=>0.01,'min'=>0,'max'=>100
         ],
         'available_from'=>[
             'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
         ],
         'available_to'=>[
-            'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
+            'type'=>'datetime-local','required'=>true,'label'=>'Data di disattivazione','value'=>''
         ],
         'products'=>[
             'fn'=>['_resolveProducts']

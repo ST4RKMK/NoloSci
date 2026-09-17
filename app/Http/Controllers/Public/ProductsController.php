@@ -17,7 +17,7 @@ class ProductsController extends Controller
 
 
       $ar =PackageResource::collection(Package::all())->merge(ProductResource::collection(Catalog::all()));
-
+//        dd($ar[0]->resolve());
       return view('public.prd-pck',['data'=>$ar]);
 
 //        return view('public.products-manager',
