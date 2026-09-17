@@ -22,7 +22,8 @@ class GloablWrapMdl extends Model
     protected $casts=[
         'meta'=>'array',
         'available_from'=>'datetime',
-        'available_to'=>'datetime'
+        'available_to'=>'datetime',
+        'status'=>'boolean'
     ];
 
 

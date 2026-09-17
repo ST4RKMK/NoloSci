@@ -2,16 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .city {
-            background-color: tomato;
-            color: white;
-            border: 2px solid black;
-            margin: 20px;
-            padding: 20px;
-        }
-    </style>
-    <table class="table">
+    <table class="table-auto w-full text-left text-zinc-800">
         @include('appl.components.tables.headers')
         @include('appl.components.tables.body')
 

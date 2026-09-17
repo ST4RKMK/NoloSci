@@ -4,10 +4,10 @@
 
 @foreach($data as $item)
 
-    <tr>
+    <tr class="border-b border-zinc-200">
 
         @foreach($headers as $k=>$v)
-            <td>
+            <td class="px-4 py-2">
             @if($k!=='action')
                {{$item[$v]}}
             @else

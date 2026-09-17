@@ -109,6 +109,9 @@ return [
                 ['value'=>true,'label'=>'Attivo']
             ]
         ],
+        'price'=>[
+            'type'=>'number','label'=>'Prezzo del prodotto','required'=>true,'value'=>'0','step'=>0.01,'min'=>0,'max'=>100
+        ],
         'available_from'=>[
             'type'=>'datetime-local','required'=>true,'label'=>'Data di attivazione','value'=>''
         ],

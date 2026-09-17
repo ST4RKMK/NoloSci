@@ -4,6 +4,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Public\ProductsController;
 use App\Http\Controllers\RentController;
 use App\Models\Admin\Catalog;
 use App\Models\System\Package;
@@ -44,11 +45,28 @@ Route::get('/packages', function () {
 
 //    $data = Package::with(['from.toable' => fn(MorphTo $mdl) => $mdl->morphWith([Package::class =>['from.toable'],Catalog::class =>[]])])->where('available_from','<',now())->where('available_to','>',now())->get();
 //    $data = Package::with(['extend','from.toable.extend'])->where('available_from','<',now())->where('available_to','>',now())->get()->toArray();
-    $data = Package::with(['extend','from:id,fromable_id,fromable_type,toable_id,toable_type',
+
+//
+//});
+    $packages = Package::with(['extend','from:id,fromable_id,fromable_type,toable_id,toable_type',
         'from.toable' => fn (MorphTo $m) => $m->constrain([
             Package::class => fn ($q) => $q->select('id', 'name')->with('extend'),
             Catalog::class => fn ($q) => $q->select('id', 'name', 'price')->with('extend'),
         ]),
     ])->where('available_from', '<', now())->where('available_to', '>', now())->get();
-    return view('public.packages',['data'=>$data]);
+
+    $products = Catalog::with('extend')->where('available_from', '<', now())->where('available_to', '>', now())->get();
+
+    return view('public.pack-and-prod-selection',['packages' => $packages,'products' => $products]);
 });
+
+//
+//
+Route::get('/products',[ProductsController::class,'showAllProducts'])->name('products.global.products');
+//    $data = Catalog::with('extend')->where('available_from', '<', now())->where('available_to', '>', now())->get();
+//return view('public.products',['data'=>$data]);
+
+
+
+
+
